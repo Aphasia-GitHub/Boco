@@ -1,0 +1,290 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{38914759-7FEA-4486-BE7D-BC3D23742938}</ProjectGuid>
+    <ProjectTypeGuids>{E3E379DF-F4C6-4180-9B81-6769533ABE47};{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Boco.Rnop.PerformanceEvaluation.UI</RootNamespace>
+    <AssemblyName>Boco.Rnop.PerformanceEvaluation.UI</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <MvcBuildViews>false</MvcBuildViews>
+    <UseIISExpress>true</UseIISExpress>
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <MvcProjectUpgradeChecked>true</MvcProjectUpgradeChecked>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <OldToolsVersion>12.0</OldToolsVersion>
+    <UseGlobalApplicationHostFile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Antlr3.Runtime">
+      <HintPath>..\..\External-Lib\Antlr3.Runtime.dll</HintPath>
+    </Reference>
+    <Reference Include="Boco.Rnop.Framework.BusiCore.Data">
+      <HintPath>..\..\Lib\Boco.Rnop.Framework.BusiCore.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="Boco.Rnop.Framework.BusiCore.Service.Client">
+      <HintPath>..\..\Lib\Boco.Rnop.Framework.BusiCore.Service.Client.dll</HintPath>
+    </Reference>
+    <Reference Include="Boco.Rnop.Framework.Common">
+      <HintPath>..\..\Lib\Boco.Rnop.Framework.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="Boco.Rnop.Framework.RestWebService">
+      <HintPath>..\..\Lib\Boco.Rnop.Framework.RestWebService.dll</HintPath>
+    </Reference>
+    <Reference Include="Boco.Rnop.Framework.Security.Data">
+      <HintPath>..\..\Lib\Boco.Rnop.Framework.Security.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="Boco.Rnop.Framework.Security.Service.Client">
+      <HintPath>..\..\Lib\Boco.Rnop.Framework.Security.Service.Client.dll</HintPath>
+    </Reference>
+    <Reference Include="Boco.Rnop.Framework.Web.Core">
+      <HintPath>..\..\Lib\Boco.Rnop.Framework.Web.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Boco.Rnop.Search.Data, Version=1.0.0.0, Culture=neutral, PublicKeyToken=1b1c67b99a9d1401, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Lib\Boco.Rnop.Search.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="Boco.Rnop.Search.ServiceClient">
+      <HintPath>..\..\Lib\Boco.Rnop.Search.ServiceClient.dll</HintPath>
+    </Reference>
+    <Reference Include="Boco.Rnop.Special.Data">
+      <HintPath>..\..\Lib\Boco.Rnop.Special.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="Dqas.TemplateManage.Client">
+      <HintPath>..\..\Lib\Dqas.TemplateManage.Client.dll</HintPath>
+    </Reference>
+    <Reference Include="Dqas.TemplateManage.DTO">
+      <HintPath>..\..\Lib\Dqas.TemplateManage.DTO.dll</HintPath>
+    </Reference>
+    <Reference Include="Kendo.Mvc">
+      <HintPath>..\..\External-Lib\Kendo.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Newtonsoft.Json.Boco">
+      <HintPath>..\..\Lib\Newtonsoft.Json.Boco.dll</HintPath>
+    </Reference>
+    <Reference Include="NPOI">
+      <HintPath>..\..\Lib\NPOI.dll</HintPath>
+    </Reference>
+    <Reference Include="ServiceStack.Interfaces, Version=0.0.0.0, Culture=neutral, PublicKeyToken=1b1c67b99a9d1401, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\External-Lib\ServiceStack.Interfaces.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Abstractions" />
+    <Reference Include="System.Web.Routing" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http">
+    </Reference>
+    <Reference Include="System.Net.Http.Formatting, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.AspNet.WebApi.Client.4.0.20710.0\lib\net40\System.Net.Http.Formatting.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http.WebRequest">
+    </Reference>
+    <Reference Include="System.Web.Helpers, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\..\packages\Microsoft.AspNet.WebPages.2.0.20710.0\lib\net40\System.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.AspNet.WebApi.Core.4.0.20710.0\lib\net40\System.Web.Http.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http.WebHost, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.AspNet.WebApi.WebHost.4.0.20710.0\lib\net40\System.Web.Http.WebHost.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\..\packages\Microsoft.AspNet.Mvc.4.0.20710.0\lib\net40\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\..\packages\Microsoft.AspNet.Razor.2.0.20710.0\lib\net40\System.Web.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\..\packages\Microsoft.AspNet.WebPages.2.0.20710.0\lib\net40\System.Web.WebPages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\..\packages\Microsoft.AspNet.WebPages.2.0.20710.0\lib\net40\System.Web.WebPages.Deployment.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\..\packages\Microsoft.AspNet.WebPages.2.0.20710.0\lib\net40\System.Web.WebPages.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="UIShell.OSGi">
+      <HintPath>..\..\External-Lib\UIShell.OSGi.dll</HintPath>
+    </Reference>
+    <Reference Include="WebGrease">
+      <HintPath>..\..\External-Lib\WebGrease.dll</HintPath>
+    </Reference>
+    <Reference Include="WebMatrix.Data, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\External-Lib\WebMatrix.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="WebMatrix.WebData, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\External-Lib\WebMatrix.WebData.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Activator.cs" />
+    <Compile Include="Controllers\AntennaDirCheckController.cs" />
+    <Compile Include="Controllers\EquipmentAlarmAnalysisController.cs" />
+    <Compile Include="Controllers\PerformanceQueryController.cs" />
+    <Compile Include="Controllers\TopCellDiagnosisController.cs" />
+    <Compile Include="Models\PerformanceQueryModel.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="..\..\CustomDictionary.xml">
+      <Link>CustomDictionary.xml</Link>
+    </Content>
+    <Content Include="Dependencies\Common\Boco.Rnop.PerformanceEvaluation.addIn" />
+    <Content Include="Manifest.xml">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Scripts\EquipmentAlarmAnalysis\EquipmentAlarmAnalysis.js" />
+    <Content Include="Scripts\PerformanceQuery\PerformanceQueryIndex.js" />
+    <Content Include="Scripts\TopCellDiagnosis\TopCellDiagnosisIndex.js" />
+    <Content Include="Views\Web.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="App_Data\" />
+    <Folder Include="App_Start\" />
+    <Folder Include="Content\" />
+    <Folder Include="Dependencies\Oracle\Config\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="WOSS.Core.snk" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Boco.Rnop.AppCore\AppCore.Data\AppCore.Data.csproj">
+      <Project>{3385a473-e193-4317-b7ef-ac53865d68d7}</Project>
+      <Name>AppCore.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Boco.Rnop.Utility\Boco.Rnop.Utility\Boco.Rnop.Utility.csproj">
+      <Project>{65063326-5443-46f9-975c-209db5e28c32}</Project>
+      <Name>Boco.Rnop.Utility</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\PerformanceEvaluation.Data\PerformanceEvaluation.Data.csproj">
+      <Project>{04ab4a8f-73c5-4334-b7df-ff4cf7ec2a74}</Project>
+      <Name>PerformanceEvaluation.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\PerformanceEvaluation.ServiceClient\PerformanceEvaluation.ServiceClient.csproj">
+      <Project>{9587eaee-5dd4-417c-8d2f-8a3c1b037a71}</Project>
+      <Name>PerformanceEvaluation.ServiceClient</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\_ViewStart.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Dependencies\Common\web.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\AntennaDirCheck\Index.cshtml" />
+    <Content Include="Views\AntennaDirCheck\Query.cshtml" />
+    <Content Include="Views\EquipmentAlarmAnalysis\EquipmentAlarmAnalysis.cshtml" />
+    <Content Include="Views\PerformanceQuery\Index.cshtml" />
+    <Content Include="Views\PerformanceQuery\Query.cshtml" />
+    <Content Include="Views\TopCellDiagnosis\Index.cshtml" />
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>true</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyOriginatorKeyFile>WOSS.Core.snk</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <Target Name="MvcBuildViews" AfterTargets="AfterBuild" Condition="'$(MvcBuildViews)'=='true'">
+    <AspNetCompiler VirtualPath="temp" PhysicalPath="$(WebProjectOutputDir)" />
+  </Target>
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>0</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:4682/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <PropertyGroup>
+    <PostBuildEvent>"$(ProjectDir)..\..\External-Tools\xdt" -t:dep -d:web "$(ProjectDir)Dependencies" "Plugins\PerformanceEvaluation"  
+"$(ProjectDir)..\..\External-Tools\xdt" -t:file -d:web "$(TargetDir)$(TargetFileName)" "Plugins\PerformanceEvaluation\bin"
+"$(ProjectDir)..\..\External-Tools\xdt" -t:file -d:web "$(TargetDir)$(TargetName).pdb" "Plugins\PerformanceEvaluation\bin"
+"$(ProjectDir)..\..\External-Tools\xdt" -t:file -d:web "$(ProjectDir)Manifest.xml" "Plugins\PerformanceEvaluation"  
+"$(ProjectDir)..\..\External-Tools\xdt" -t:folder -d:web "$(ProjectDir)Content" "Plugins\PerformanceEvaluation\Content"
+"$(ProjectDir)..\..\External-Tools\xdt" -t:folder -d:web "$(ProjectDir)Scripts" "Plugins\PerformanceEvaluation\Scripts"
+"$(ProjectDir)..\..\External-Tools\xdt" -t:folder -d:web "$(ProjectDir)Views" "Plugins\PerformanceEvaluation\Views"
+</PostBuildEvent>
+  </PropertyGroup>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
