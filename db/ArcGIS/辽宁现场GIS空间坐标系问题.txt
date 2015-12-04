@@ -1,0 +1,3 @@
+Map: Geometry (wkid: 4326) cannot be converted to spatial reference of the map (wkid: GEOGCS["GCS_WGS_1984",DATUM["D_WGS_1984",SPHEROID["WGS_1984",6378137.0,298.25722]],PRIMEM["Greenwich",0.0],UNIT["Degree",0.0174532925199433]])
+
+Map: Geometry (wkid: 4326) cannot be converted to spatial reference of the map (wkid: GEOGCS["GCS_WGS_1984",DATUM["D_WGS_1984",SPHEROID["WGS_1984",6378137.0,298.25722]],PRIMEM["Greenwich",0.0],UNIT["Degree",0.0174532925199433]])
