@@ -1,0 +1,64 @@
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+</head>
+<body>
+    <div id="main" style="100%; height: 100%;"></div>
+</body>
+<script src="echarts-all.js"></script>
+<script>
+	debugger;
+	//var mapGeoData = require('echarts/util/mapData/params');
+    var myChart = echarts.init(document.getElementById('main'));
+	var mapType = '安徽';
+    var option = {
+        title: {
+            text : '安徽地图',
+            subtext : 'AnHui Map'
+        },
+        tooltip : {
+            trigger: 'item',
+            formatter: function(a){
+                return a[2];
+            }
+        },
+        legend: {
+            orient: 'vertical',
+            x:'right',
+            data:['数据名称']
+        },
+        dataRange: {
+            min: 0,
+            max: 1000,
+            color:['orange','yellow'],
+            text:['高','低'],           // 文本，默认为数值文本
+            calculable : true
+        },
+        series : [
+            {
+                name: '数据名称',
+                type: 'map',
+                mapType: mapType,
+                selectedMode : 'single',
+                itemStyle:{
+                    normal:{label:{show:true}},
+                    emphasis:{label:{show:true}}
+                },
+                data:[
+                    {name: '合肥市',value: Math.round(Math.random()*1000)}
+                ]
+            }
+        ]
+    };
+	myChart.on(echarts.config.EVENT.MAP_SELECTED, function (param){
+		console.log(param);
+		//console.log(myChart.chart.map.getGeoByPos(mapType,))
+		console.log(myChart.chart.map.getGeoByPos('安徽',param.event));
+		alert(param.target);
+		
+	});
+    myChart.setOption(option);
+                     
+</script>
+</html>
