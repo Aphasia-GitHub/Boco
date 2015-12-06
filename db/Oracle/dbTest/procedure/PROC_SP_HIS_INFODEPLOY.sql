@@ -1,0 +1,162 @@
+CREATE OR REPLACE PROCEDURE PROC_SP_HIS_INFODEPLOY AS
+--信息配置统计快照，直接生成统计结果到历史表HIS_PRO_INFODEPLOY
+BEGIN
+
+  DELETE FROM HIS_PRO_INFODEPLOY WHERE HIS_TIME = TRUNC(SYSDATE);
+  COMMIT;
+
+  INSERT INTO HIS_PRO_INFODEPLOY
+    (REGION_NAME,
+     BTS_NUM,
+     INDOORS_NBR,
+     REPEATER_NBR,
+     ACER_NUM,
+     ZOOM_NUM,
+     X_NUM,
+     XDO_NUM,
+     DO_NUM,
+     XCELL_NUM,
+     DOCELL_NUM,
+     DOWNTOWNBTS_NUM,
+     COUNTYBTS_NUM,
+     COUNTRYSIDEBTS_NUM,
+     HIS_TIME)
+    SELECT CITY.REGION_NAME AS REGION_NAME,
+           (SELECT COUNT(*)
+              FROM C_TCO_PRO_BTS A
+             WHERE A.REGION_ID = BTS.REGION_ID) AS BTS_NUM,
+           (SELECT COUNT(*)
+              FROM C_TCO_PRO_INDOORS INDOORS
+             WHERE BTS.REGION_ID = INDOORS.REGION_ID) AS INDOORS_NBR,
+           (SELECT COUNT(*)
+              FROM C_TCO_PRO_REPEATER REPEATER
+             WHERE BTS.REGION_ID = REPEATER.REGION_ID) AS REPEATER_NBR,
+           (SELECT COUNT(*)
+              FROM C_TCO_PRO_BTS A
+             WHERE A.REGION_ID = BTS.REGION_ID
+               AND BTS_TYPE = '宏基站') AS ACER_NUM,
+           (SELECT COUNT(*)
+              FROM C_TCO_PRO_BTS A
+             WHERE A.REGION_ID = BTS.REGION_ID
+               AND BTS_TYPE = '射频拉远') AS ZOOM_NUM,
+           (SELECT COUNT(*)
+              FROM C_TCO_PRO_BTS A
+              LEFT JOIN CDMAUSER.C_BTS CBTS
+                ON A.INT_ID = CBTS.INT_ID
+             WHERE A.REGION_ID = BTS.REGION_ID
+               AND CBTS.BTSCLASS = 2) AS X_NUM,
+           (SELECT COUNT(*)
+              FROM C_TCO_PRO_BTS A
+              LEFT JOIN CDMAUSER.C_BTS CBTS
+                ON A.INT_ID = CBTS.INT_ID
+             WHERE A.REGION_ID = BTS.REGION_ID
+               AND CBTS.BTSCLASS = 5) AS XDO_NUM,
+           (CAST(((SELECT COUNT(*)
+                     FROM C_TCO_PRO_BTS A
+                     LEFT JOIN CDMAUSER.C_BTS CBTS
+                       ON A.INT_ID = CBTS.INT_ID
+                    WHERE A.REGION_ID = BTS.REGION_ID
+                      AND CBTS.BTSCLASS = 5) /
+                 (SELECT COUNT(*)
+                     FROM C_TCO_PRO_BTS A
+                     LEFT JOIN CDMAUSER.C_BTS CBTS
+                       ON A.INT_ID = CBTS.INT_ID
+                    WHERE A.REGION_ID = BTS.REGION_ID) * 100) AS
+                 DECIMAL(18, 2))) AS DO_NUM,
+           (SELECT SUM(CCELL.NUMFA)
+              FROM C_TCO_PRO_BTS A
+              LEFT JOIN CDMAUSER.C_CELL CCELL
+                ON CCELL.RELATED_BTS = A.INT_ID
+             WHERE A.REGION_ID = BTS.REGION_ID) AS XCELL_NUM,
+           (SELECT SUM(CCELL.NUMFA_DO)
+              FROM C_TCO_PRO_BTS A
+              LEFT JOIN CDMAUSER.C_CELL CCELL
+                ON CCELL.RELATED_BTS = A.INT_ID
+             WHERE A.REGION_ID = BTS.REGION_ID) AS DOCELL_NUM,
+           (SELECT COUNT(*)
+              FROM C_TCO_PRO_BTS A
+              LEFT JOIN TCO_PRO_GRID GRID
+                ON A.GRID_ID = GRID.GRID_NO
+             WHERE A.REGION_ID = BTS.REGION_ID
+               AND GRID.GRID_TYPE = '市区') AS DOWNTOWNBTS_NUM,
+           (SELECT COUNT(*)
+              FROM C_TCO_PRO_BTS A
+              LEFT JOIN TCO_PRO_GRID GRID
+                ON A.GRID_ID = GRID.GRID_NO
+             WHERE A.REGION_ID = BTS.REGION_ID
+               AND GRID.GRID_TYPE = '县城') AS COUNTYBTS_NUM,
+           (SELECT COUNT(*)
+              FROM C_TCO_PRO_BTS A
+              LEFT JOIN TCO_PRO_GRID GRID
+                ON A.GRID_ID = GRID.GRID_NO
+             WHERE A.REGION_ID = BTS.REGION_ID
+               AND (GRID.GRID_TYPE != '市区' AND GRID.GRID_TYPE != '县城')) AS COUNTRYSIDEBTS_NUM,
+           TRUNC(SYSDATE) HIS_TIME
+      FROM C_TCO_PRO_BTS BTS
+      LEFT JOIN C_REGION_CITY CITY
+        ON CITY.REGION_ID = BTS.REGION_ID
+     GROUP BY BTS.REGION_ID, CITY.REGION_NAME
+    UNION ALL
+    SELECT '总计' REGION_NAME,
+           BTS.BTS_NUM AS BTS_NUM,
+           INDOORS.INDOORS_NBR AS INDOORS_NBR,
+           REPEATER.REPEATER_NBR AS REPEATER_NBR,
+           ACBTS.ACER_NUM AS ACER_NUM,
+           ZOONBTS.ZOOM_NUM AS ZOOM_NUM,
+           XBTS.X_NUM AS X_NUM,
+           XDOBTS.XDO_NUM AS XDO_NUM,
+           CAST((XDOBTS.XDO_NUM / (XBTS.X_NUM + XDOBTS.XDO_NUM)) * 100 AS
+                DECIMAL(18, 2)) AS DO_NUM,
+           XCELL.XCELL_NUM AS XCELL_NUM,
+           DOCELL.DOCELL_NUM AS DOCELL_NUM,
+           DOWNBTS.DOWNTOWNBTS_NUM AS DOWNTOWNBTS_NUM,
+           COUNTYBTS.COUNTYBTS_NUM AS COUNTYBTS_NUM,
+           COUNBTS.COUNTRYSIDEBTS_NUM AS COUNTRYSIDEBTS_NUM,
+           TRUNC(SYSDATE) HIS_TIME
+      FROM (SELECT COUNT(*) AS BTS_NUM FROM C_TCO_PRO_BTS) BTS,
+           (SELECT COUNT(*) AS INDOORS_NBR FROM C_TCO_PRO_INDOORS) INDOORS,
+           (SELECT COUNT(*) AS REPEATER_NBR FROM C_TCO_PRO_REPEATER) REPEATER,
+           (SELECT COUNT(*) AS ACER_NUM
+              FROM C_TCO_PRO_BTS
+             WHERE BTS_TYPE = '宏基站') ACBTS,
+           (SELECT COUNT(*) AS ZOOM_NUM
+              FROM C_TCO_PRO_BTS
+             WHERE BTS_TYPE = '射频拉远') ZOONBTS,
+           (SELECT COUNT(*) AS X_NUM
+              FROM C_TCO_PRO_BTS A
+              LEFT JOIN CDMAUSER.C_BTS CBTS
+                ON A.INT_ID = CBTS.INT_ID
+             WHERE CBTS.BTSCLASS = 2) XBTS,
+           (SELECT COUNT(*) AS XDO_NUM
+              FROM C_TCO_PRO_BTS A
+              LEFT JOIN CDMAUSER.C_BTS CBTS
+                ON A.INT_ID = CBTS.INT_ID
+             WHERE CBTS.BTSCLASS = 5) XDOBTS,
+           (SELECT SUM(CCELL.NUMFA) AS XCELL_NUM
+              FROM C_TCO_PRO_BTS A
+              LEFT JOIN CDMAUSER.C_CELL CCELL
+                ON CCELL.RELATED_BTS = A.INT_ID) XCELL,
+           (SELECT SUM(CCELL.NUMFA_DO) AS DOCELL_NUM
+              FROM C_TCO_PRO_BTS A
+              LEFT JOIN CDMAUSER.C_CELL CCELL
+                ON CCELL.RELATED_BTS = A.INT_ID) DOCELL,
+           (SELECT COUNT(*) AS DOWNTOWNBTS_NUM
+              FROM C_TCO_PRO_BTS A
+              LEFT JOIN TCO_PRO_GRID GRID
+                ON A.GRID_ID = GRID.GRID_NO
+             WHERE GRID.GRID_TYPE = '市区') DOWNBTS,
+           (SELECT COUNT(*) AS COUNTYBTS_NUM
+              FROM C_TCO_PRO_BTS A
+              LEFT JOIN TCO_PRO_GRID GRID
+                ON A.GRID_ID = GRID.GRID_NO
+             WHERE GRID.GRID_TYPE = '县城') COUNTYBTS,
+           (SELECT COUNT(*) AS COUNTRYSIDEBTS_NUM
+              FROM C_TCO_PRO_BTS A
+              LEFT JOIN TCO_PRO_GRID GRID
+                ON A.GRID_ID = GRID.GRID_NO
+             WHERE GRID.GRID_TYPE != '市区'
+               AND GRID.GRID_TYPE != '县城') COUNBTS;
+
+  COMMIT;
+
+END PROC_SP_HIS_INFODEPLOY;
