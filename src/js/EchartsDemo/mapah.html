@@ -1,0 +1,124 @@
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+</head>
+<body>
+    <div id="main" style="100%; height: 100%;"></div>
+</body>
+<script src="echarts.all.min.js"></script>
+<script>	
+    var chartMap = echarts.init(document.getElementById('main'));
+	var mapType = '安徽';
+	var geoDatas = null;
+	var mapOption = {	
+		tooltip: {
+			trigger: 'item',
+			formatter: '{b}: {c}'
+		},				
+		toolbox: {
+			 show: true,
+			 padding: 15,
+			 orient : 'vertical',
+			 x: 'right',
+			 y: 'center',
+			 feature: {		
+				magicType : {show: true,title : {bar : '转换为趋势图'}, type: ['bar']},  
+				saveAsImage: {show: true}
+			 }
+		 },
+		series: [
+			{
+				type: 'map',
+				mapType: mapType,//'china',
+				selectedMode: 'single',
+				itemStyle: {
+					normal: {
+						borderWidth: 1,
+						borderColor: 'white',
+						label: {
+							show: true,
+							formatter: '{a}'
+						}
+					},
+					emphasis: {
+						color: '#5bc0de',
+						borderWidth: 1,
+						borderColor: 'white',
+						label: {show: true}
+					}
+				},
+				
+				// 后台取到各个地市的某项指标的范围
+				data : []
+				/*
+				data : [
+					{geoId:340000,name: "安徽",value: 99.66},
+					{geoId:340100,name: "合肥市",value: 99.66},
+					{geoId:340200,name: "芜湖市",value: 99.66},
+					{geoId:340300,name: "蚌埠市",value: 99.66},
+					{geoId:340400,name: "淮南市",value: 99.66},
+					{geoId:340500,name: "马鞍山市",value: 99.66},
+					{geoId:340600,name: "淮北市",value: 99.66},
+					{geoId:340700,name: "铜陵市",value: 99.66},
+					{geoId:340800,name: "安庆市",value: 99.66},
+					{geoId:341000,name: "黄山市",value: 99.66},
+					{geoId:341100,name: "滁州市",value: 99.66},
+					{geoId:341200,name: "阜阳市",value: 99.66},
+					{geoId:341300,name: "宿州市",value: 99.66},
+					{geoId:341500,name: "六安市",value: 99.66},
+					{geoId:341600,name: "亳州市",value: 99.66},
+					{geoId:341700,name: "池州市",value: 99.66},
+					{geoId:341800,name: "宣城市",value: 99.66}
+				]
+				*/
+			}
+		],
+		// 后台取到指标的范围及配色信息
+		
+		dataRange :{
+			splitList : [
+				{start:0,end:90,label: "0% - 90%"},
+				{start:90,end:95,label: "90% - 95%"},
+				{start:95,end:98,label: "95% - 98%"},
+				{start:98,end:100,label: "98% - 100%"}
+			],
+			color : ['#d9534f', '#f0ad4e', '#f0ea4d', '#5cb85c'],
+			precision : 2,
+			padding: 15,
+			x: "left",
+			y: "top"
+		}
+		
+	};	
+	debugger;
+	//var mapUtil = echarts.util.mapData;	
+	//mapUtil.params.params.安徽.getGeoJson(showGeo);
+	echarts.util.mapData.params.params[mapType].getGeoJson(saveGeoData);
+	chartMap.on(echarts.config.EVENT.MAP_SELECTED, function (param){
+		console.log(param);
+		if(geoDatas !== null){
+			var regions  = geoDatas.features;
+			//properties
+			var selectedRegion = regions.filter(function(jitem){
+				return jitem.properties.name === param.target;
+			});
+			if(selectedRegion.length !== 0){
+				var lon = selectedRegion[0].properties.cp[0];
+				var lat = selectedRegion[0].properties.cp[1];
+				var strInfo = "您选择的是【" + selectedRegion[0].properties.name + "】，经纬度为【" + lon +"," + lat + "】";
+				console.debug(strInfo);
+				alert(strInfo);
+			}
+			//alert(param.target);		
+		}		
+	});
+    chartMap.setOption(mapOption);          
+	
+	function saveGeoData(geo){
+		console.debug(geo);
+		geoDatas = geo;
+	}
+	
+</script>
+</html>
