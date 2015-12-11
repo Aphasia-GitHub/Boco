@@ -6,11 +6,91 @@
 <body>
     <div id="main" style="100%; height: 100%;"></div>
 </body>
-<script src="echarts.all.min.js"></script>
+<script src="echarts.all.debug.js"></script>
 <script>	
     var chartMap = echarts.init(document.getElementById('main'));
 	var mapType = '安徽';
 	var geoDatas = null;
+	var kpidata = [
+		{geoId:340000,name: "安徽",value: 99.66},
+		{geoId:340100,name: "合肥市",value: 99.66},
+		{geoId:340200,name: "芜湖市",value: 99.66},
+		{geoId:340300,name: "蚌埠市",value: 99.66},
+		{geoId:340400,name: "淮南市",value: 99.66},
+		{geoId:340500,name: "马鞍山市",value: 99.66},
+		{geoId:340600,name: "淮北市",value: 99.66},
+		{geoId:340700,name: "铜陵市",value: 99.66},
+		{geoId:340800,name: "安庆市",value: 99.66},
+		{geoId:341000,name: "黄山市",value: 99.66},
+		{geoId:341100,name: "滁州市",value: 99.66},
+		{geoId:341200,name: "阜阳市",value: 99.66},
+		{geoId:341300,name: "宿州市",value: 99.66},
+		{geoId:341500,name: "六安市",value: 99.66},
+		{geoId:341600,name: "亳州市",value: 99.66},
+		{geoId:341700,name: "池州市",value: 99.66},
+		{geoId:341800,name: "宣城市",value: 99.66}
+	];
+	
+	var kpidataRange = {
+		splitList : [
+			{start:0,end:90,label: "0% - 90%"},
+			{start:90,end:95,label: "90% - 95%"},
+			{start:95,end:98,label: "95% - 98%"},
+			{start:98,end:100,label: "98% - 100%"}
+		],
+		color : ['#d9534f', '#f0ad4e', '#f0ea4d', '#5cb85c'],
+		precision : 2,
+		padding: 15,
+		x: "left",
+		y: "top"
+	};
+	
+	/*
+	var kpiseries = [
+		{
+			type: 'map',
+			mapType: mapType,//'china',
+			selectedMode: 'single',
+			itemStyle: {
+				normal: {
+					borderWidth: 1,
+					borderColor: 'white',
+					label: {
+						show: true,
+						formatter: '{a}'
+					}
+				},
+				emphasis: {
+					color: '#5bc0de',
+					borderWidth: 1,
+					borderColor: 'white',
+					label: {show: true}
+				}
+			},
+			
+			// 后台取到各个地市的某项指标的范围
+			data : [
+				{geoId:340000,name: "安徽",value: 99.66},
+				{geoId:340100,name: "合肥市",value: 99.66},
+				{geoId:340200,name: "芜湖市",value: 99.66},
+				{geoId:340300,name: "蚌埠市",value: 99.66},
+				{geoId:340400,name: "淮南市",value: 99.66},
+				{geoId:340500,name: "马鞍山市",value: 99.66},
+				{geoId:340600,name: "淮北市",value: 99.66},
+				{geoId:340700,name: "铜陵市",value: 99.66},
+				{geoId:340800,name: "安庆市",value: 99.66},
+				{geoId:341000,name: "黄山市",value: 99.66},
+				{geoId:341100,name: "滁州市",value: 99.66},
+				{geoId:341200,name: "阜阳市",value: 99.66},
+				{geoId:341300,name: "宿州市",value: 99.66},
+				{geoId:341500,name: "六安市",value: 99.66},
+				{geoId:341600,name: "亳州市",value: 99.66},
+				{geoId:341700,name: "池州市",value: 99.66},
+				{geoId:341800,name: "宣城市",value: 99.66}
+			]
+		}
+	];
+	*/
 	var mapOption = {	
 		tooltip: {
 			trigger: 'item',
@@ -24,7 +104,22 @@
 			 y: 'center',
 			 feature: {		
 				magicType : {show: true,title : {bar : '转换为趋势图'}, type: ['bar']},  
-				saveAsImage: {show: true}
+				saveAsImage: {show: true},
+				myTool : {
+					show : true,
+					title : '自定义扩展方法',
+					//icon : 'image://../asset/ico/favicon.png',
+					onclick : function (){
+						//alert('myToolHandler');
+						debugger;
+						//chartMap.addData(kpidata);
+						chartMap._option.dataRange = kpidataRange;
+						chartMap.chart.map.series[0].data = kpidata;
+						
+						//chartMap.set //kpiseries
+						//chartMap.setSeries(kpiseries);
+					}
+				}
 			 }
 		 },
 		series: [
@@ -50,48 +145,57 @@
 				},
 				
 				// 后台取到各个地市的某项指标的范围
-				data : []
-				/*
+				//data : []
+				
 				data : [
-					{geoId:340000,name: "安徽",value: 99.66},
-					{geoId:340100,name: "合肥市",value: 99.66},
-					{geoId:340200,name: "芜湖市",value: 99.66},
-					{geoId:340300,name: "蚌埠市",value: 99.66},
-					{geoId:340400,name: "淮南市",value: 99.66},
-					{geoId:340500,name: "马鞍山市",value: 99.66},
-					{geoId:340600,name: "淮北市",value: 99.66},
-					{geoId:340700,name: "铜陵市",value: 99.66},
-					{geoId:340800,name: "安庆市",value: 99.66},
-					{geoId:341000,name: "黄山市",value: 99.66},
-					{geoId:341100,name: "滁州市",value: 99.66},
-					{geoId:341200,name: "阜阳市",value: 99.66},
-					{geoId:341300,name: "宿州市",value: 99.66},
-					{geoId:341500,name: "六安市",value: 99.66},
-					{geoId:341600,name: "亳州市",value: 99.66},
-					{geoId:341700,name: "池州市",value: 99.66},
-					{geoId:341800,name: "宣城市",value: 99.66}
+					{name: "合肥市",value: 95.66},
+					{name: "芜湖市",value: 98.66},
+					{name: "蚌埠市",value: 91.66},
+					{name: "淮南市",value: 93.66},
+					{name: "马鞍山市",value: 97.66},
+					{name: "淮北市",value: 98.66},
+					{name: "铜陵市",value: 95.66},
+					{name: "安庆市",value: 96.66},
+					{name: "黄山市",value: 94.66},
+					{name: "滁州市",value: 99.66},
+					{name: "阜阳市",value: 95.66},
+					{name: "宿州市",value: 91.66},
+					{name: "六安市",value: 92.66},
+					{name: "亳州市",value: 95.66},
+					{name: "池州市",value: 91.66},
+					{name: "宣城市",value: 92.66}
 				]
-				*/
+				
 			}
 		],
 		// 后台取到指标的范围及配色信息
 		
+		/*
+		dataRange: {
+			min: 800,
+			max: 50000,
+			text:['High','Low'],
+			//realtime: false,
+			calculable : true,
+			color: ['orangered','yellow','lightskyblue']
+		}		
+		*/
+		
 		dataRange :{
 			splitList : [
-				{start:0,end:90,label: "0% - 90%"},
-				{start:90,end:95,label: "90% - 95%"},
-				{start:95,end:98,label: "95% - 98%"},
-				{start:98,end:100,label: "98% - 100%"}
+				{start:0,end:90,color:"#d9534f",label: "范围0% - 90%"},
+				{start:90,end:95,color:"#f0ad4e",label: "90% - 95%"},
+				{start:95,end:98,color:"#f0ea4d",label: "95% - 98%"},
+				{start:98,end:100,color:"#5cb85c",label: "98% - 100%"}
 			],
-			color : ['#d9534f', '#f0ad4e', '#f0ea4d', '#5cb85c'],
-			precision : 2,
+			//color : ['#d9534f', '#f0ad4e', '#f0ea4d', '#5cb85c'],
+			//precision : 2,
 			padding: 15,
 			x: "left",
 			y: "top"
 		}
 		
 	};	
-	debugger;
 	//var mapUtil = echarts.util.mapData;	
 	//mapUtil.params.params.安徽.getGeoJson(showGeo);
 	echarts.util.mapData.params.params[mapType].getGeoJson(saveGeoData);
@@ -113,6 +217,12 @@
 			//alert(param.target);		
 		}		
 	});
+	
+	/*
+	chartMap.showLoading({
+        text: "图表数据正在努力加载..."
+    });
+	*/
     chartMap.setOption(mapOption);          
 	
 	function saveGeoData(geo){
