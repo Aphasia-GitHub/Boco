@@ -8,7 +8,11 @@ namespace DTLinq
     {
         static void Main(string[] args)
         {
+            DTMerge m = new DTMerge();
+            var dt = m.MergTest2();
+
             Test();
+
             Console.Read();
         }
 
